@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 type RouteParams = {
   params: {
@@ -7,7 +7,7 @@ type RouteParams = {
   };
 };
 
-export async function DELETE(request: Request, context: RouteParams) {
+export async function DELETE(request: NextRequest, context: RouteParams) {
     const { id } = context.params;
     const idAsNumber = Number(id);
     if (isNaN(idAsNumber)) {
