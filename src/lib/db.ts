@@ -1,12 +1,9 @@
-import { Pool } from 'pg';
+import { PrismaClient } from "../generated/prisma";
 
-// Simple connection - no fancy error handling
-const pool = new Pool({
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  host: 'localhost',
-  port: 5432,
-});
+const globalForPrisma = global as unknown as { prisma: PrismaClient | undefined };
 
-export default pool;
+const prisma = globalForPrisma.prisma || new PrismaClient();
+
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+
+export const db = prisma;
