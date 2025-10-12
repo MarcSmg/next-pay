@@ -1,9 +1,21 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-    const { id } = params;
-    try {
+type RouteParams = {
+  params: {
+    id: string;
+  };
+};
+
+export async function DELETE(request: Request, context: RouteParams) {
+    const { id } = context.params;
+    const idAsNumber = Number(id);
+    if (isNaN(idAsNumber)) {
+        return NextResponse.json(
+            { error: 'Invalid ID format. Must be a number.' },
+            { status: 400 } // Bad Request
+        );
+    }    try {
         const deletedUser = await db.user.delete({
             where: { id: Number(id) },
         });
