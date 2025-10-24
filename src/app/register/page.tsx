@@ -36,22 +36,34 @@ export default function Register() {
         setLoading(false);
         setMessage('User registered successfully');
         // Redirect to payment page
-        router.push('/register/payment');
+
+        const data = await response.json()
+
+        if (data.url) {
+            console.log('Payment URL found');
+            window.location.href = data.url;
+        } else {
+            setMessage('Error: Payment URL not received.');
+        }
 
     } else {
+        setLoading(false);
+        const errorData = await response.json();
+        setMessage(errorData.error || 'Failed to register');
         console.error('Failed to register');
     }
   }
   return (
 <div className="min-h-screen flex flex-col justify-center items-center p-6">
         <h1 className="text-3xl font-bold mb-6">Register</h1>
-        <form onSubmit={handleSubmit} className=" p-10 rounded-xl shadow-xl w-full max-w-md">
+        <form onSubmit={handleSubmit} className=" container p-10 rounded-xl w-full max-w-md">
             <div className="mb-4">
                 <label className="block mb-2" htmlFor="firstName">First Name</label>
                 <input
                     type="text"
+                    placeholder='First Name'
                     id="firstName"
-                    className="w-full px-3 py-2 border-2 border-gray-300 outline-0 focus:border-black transition-colors duration-300 rounded"
+                    className="input-deep"
                     value={form.firstName}
                     onChange={(e) => setForm({ ...form, firstName: e.target.value })}
                     required
@@ -61,8 +73,9 @@ export default function Register() {
                 <label className="block mb-2" htmlFor="lastName">Last Name</label>
                 <input
                     type="text"
+                    placeholder='Last Name'
                     id="lastName"
-                    className="w-full px-3 py-2 border-2 border-gray-300 outline-0 focus:border-black transition-colors duration-300 rounded"
+                    className="input-deep"
                     value={form.lastName}
                     onChange={(e) => setForm({ ...form, lastName: e.target.value })}
                     required
@@ -72,8 +85,9 @@ export default function Register() {
                 <label className="block mb-2" htmlFor="email">Email</label>
                 <input
                     type="email"
+                    placeholder='E-mail'
                     id="email"
-                    className="w-full px-3 py-2 border-2 border-gray-300 outline-0 focus:border-black transition-colors duration-300 rounded"
+                    className="input-deep"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     required
@@ -86,7 +100,7 @@ export default function Register() {
                 <input
                     type="tel"
                     id="phone"
-                    className="w-full px-3 py-2 border-2 border-gray-300 outline-0 focus:border-black transition-colors duration-300 rounded"
+                    className="input-deep"
                     placeholder='Phone Number'
                     value={form.phone}
                     onChange={(e) => setForm({ ...form, phone: e.target.value })}
@@ -134,7 +148,7 @@ export default function Register() {
             <div className=' mb-4'>
                 <input
                     id="password"
-                    className="w-full px-3 py-2 border-2 border-gray-300 outline-0 focus:border-black transition-colors duration-300 rounded"
+                    className="input-deep"
                     placeholder="Password"
                     value={form.password}
                     onChange={(e) => setForm({ ...form, password: e.target.value })}
@@ -145,7 +159,7 @@ export default function Register() {
             <div className=' mb-4'>
                 <input 
                     id="confirmPassword"
-                    className="w-full px-3 py-2 border-2 border-gray-300 outline-0 focus:border-black transition-colors duration-300 rounded"
+                    className="input-deep"
                     placeholder="Confirm Password"
                     type="password" 
                     required
@@ -153,10 +167,10 @@ export default function Register() {
             </div>
             <button
                 type="submit"
-                className="w-full bg-[var(--accent-light)] text-white py-2 rounded-lg cursor-pointer hover:bg-[var(--accent-hover)] transition duration-200"
+                className="w-full bg-[var(--accent-light)] text-white py-2 rounded-lg cursor-pointer transition duration-200 plate-button"
                 disabled={loading}
             >
-                {loading ? 'Registering...' : 'Register'}
+                {loading ? 'Processing...' : 'Register & Pay 500 FCFA'}
             </button>
             {message && <p className="mt-4 text-center text-red-500">{message}</p>}
         </form>

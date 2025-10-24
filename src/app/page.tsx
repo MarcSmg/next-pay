@@ -1,3 +1,4 @@
+import Link from "next/link";
 export default function Home() {
   return (
     <div style={{ padding: '40px', textAlign: 'center' }}>
@@ -8,18 +9,18 @@ export default function Home() {
         Register for our event and make your payment
       </p>
       <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
-        <a 
+        <Link 
           href="/register" 
-          className=" px-6 py-3 bg-[var(--accent-light)] text-white rounded-lg hover:bg-[var(--accent-hover)] transition-colors duration-300"
+          className=" px-6 py-3 bg-[var(--accent-light)] text-white rounded-lg transition duration-300 plate-button"
         >
           Register & Pay
-        </a>
-        <a 
+        </Link>
+        <Link 
           href="/dashboard" 
-          className=" px-6 py-3 bg-[var(--accent-light)] text-white rounded-lg hover:bg-[var(--accent-hover)] transition-colors duration-300"
+          className=" px-6 py-3 bg-[var(--accent-light)] text-white rounded-lg transition duration-300 plate-button"
         >
           Admin Dashboard
-        </a>
+        </Link>
       </div>
     </div>
   );

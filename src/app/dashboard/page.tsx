@@ -68,7 +68,7 @@ export default function Dashboard() {
         {registrations.length === 0 ? ( 
             <p>No registrations found.</p>
         ) : (
-            <div className="overflow-hidden rounded-lg border-3 border-gray-400 shadow-md p-4">
+            <div className=" container overflow-hidden rounded-lg border-3 border-gray-400 shadow-md p-4">
                 <table className="min-w-full border-gray-300 ">
                     <thead>
                         <tr>
@@ -94,7 +94,7 @@ export default function Dashboard() {
                                 <td className="py-2 px-4 border-r border-gray-400">{new Date(reg.createdAt).toLocaleString()}</td>
                                 <td className="py-2 px-4">
                                     <button
-                                        className="bg-red-500 text-[var(--text-secondary)] px-3 py-1 rounded hover:bg-red-600 transform hover:scale-105 transition cursor-pointer"
+                                        className="delete-button"
                                         onClick={() => deleteRegistration(reg.id)}
                                     >Delete</button>
                                 </td>
