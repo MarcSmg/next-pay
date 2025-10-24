@@ -52,7 +52,7 @@ export async function POST(req: Request) {
                     country: 'BJ' // <-- Set your country code (e.g., 'BJ', 'SN', 'CI')
                 }
             },
-            callback_url: 'https://localhost:3000/registration-success',
+            callback_url: `${siteUrl}/registration-success`,
         });
         
         const token = await transaction.generateToken();
